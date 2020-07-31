@@ -22,10 +22,10 @@ defmodule TicTacToe.Game.Board do
   def move(board, position, new_symbol) do
     new_board =
       board.board
-    |> Enum.with_index(1)
-    |> Enum.map(fn {symbol, index} ->
-      change(symbol, index == position, new_symbol)
-    end)
+      |> Enum.with_index(1)
+      |> Enum.map(fn {symbol, index} ->
+        change(symbol, index == position, new_symbol)
+      end)
 
     %__MODULE__{board: new_board}
   end
@@ -33,6 +33,7 @@ defmodule TicTacToe.Game.Board do
   defp change(_old_symbol, true, new_symbol) do
     new_symbol
   end
+
   defp change(old_symbol, _, _new_symbol) do
     old_symbol
   end
