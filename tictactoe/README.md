@@ -1,6 +1,6 @@
 # Tictactoe
 
-A simple eix (Elixir's REPL) implementation of Tic Tac Toe.
+A simple iex (Elixir's REPL) implementation of Tic Tac Toe.
 
 Example:
 ```elixir
