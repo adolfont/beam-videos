@@ -1,0 +1,11 @@
+b1= Board.new([
+  :x,    :o,    :o,
+  :x,    :o,    :x,
+  :o,    :x,    :o
+])
+
+b2 = Board.new([
+  :x,    :o,    :o,
+  :x,    :x,    :o,
+  :o,    :x,    :x
+])

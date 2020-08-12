@@ -1,6 +1,40 @@
 # Tictactoe
 
-**TODO: Add description**
+A simple command-line implementation of Tic Tac Toe.
+
+Example:
+```elixir
+> iex -S mix
+iex(1)> alias TicTacToe.Game.Board
+TicTacToe.Game.Board
+iex(2)> b = Board.new()
+%TicTacToe.Game.Board{
+  cells: [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty,
+   :empty],
+  status: :unfinished,
+  winner: :nobody
+}
+iex(3)> b = Board.move(b, 1, 1, :x)
+%TicTacToe.Game.Board{
+  cells: [:x, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
+  status: :unfinished,
+  winner: :nobody
+}
+iex(4)> Board.show(b)
+X _ _
+_ _ _
+_ _ _
+Status: unfinished
+Winner: nobody
+:ok
+```
+
+
+(...)
+
+```elixir
+
+```
 
 ## Installation
 
