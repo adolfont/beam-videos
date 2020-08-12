@@ -13,7 +13,7 @@ defmodule TicTacToe.Game.Board do
             status: :unfinished,
             winner: :nobody
 
-  @symbols [:x, :o]
+  #  @symbols [:x, :o]
 
   def new() do
     %__MODULE__{}
@@ -44,25 +44,6 @@ defmodule TicTacToe.Game.Board do
 
   def finished(board) do
     board.status != :unfinished
-  end
-
-  def maybe_change_status(board = %{board: [s, s, s, _, _, _, _, _, _]})
-      when s in @symbols do
-    change_status(board, s)
-  end
-
-  def maybe_change_status(board = %{board: [_, _, _, s, s, s, _, _, _]})
-      when s in @symbols do
-    change_status(board, s)
-  end
-
-  def maybe_change_status(board = %{board: [_, _, _, _, _, _, s, s, s]})
-      when s in @symbols do
-    change_status(board, s)
-  end
-
-  defp change_status(board, s) do
-    %__MODULE__{board: board, status: :won, winner: s}
   end
 
   def winner?(board, symbol) do
