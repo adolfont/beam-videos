@@ -5,7 +5,7 @@ defmodule TictactoeTest do
   test "creates an empty board" do
     new_board = Board.new()
 
-    assert new_board.board == [
+    assert new_board.cells == [
              :empty,
              :empty,
              :empty,
@@ -20,10 +20,10 @@ defmodule TictactoeTest do
     assert not Board.finished(new_board)
   end
 
-  test "creates an empty board and puts an :x on position 4" do
+  test "creates an empty board and puts an :x on position 2,1" do
     b = Board.new()
 
-    Board.move(b, 4, :x)
+    Board.move(b, 2, 1, :x)
     |> assert_equals_board(
       Board.new([
         :empty,
@@ -72,10 +72,13 @@ defmodule TictactoeTest do
   end
 
   defp create_board(string) do
-    string
-    |> String.replace(" ", "")
-    |> String.codepoints()
-    |> Enum.map(fn x -> String.to_atom(x) end)
-    |> Board.new()
+    board =
+      string
+      |> String.replace(" ", "")
+      |> String.codepoints()
+      |> Enum.map(fn x -> String.to_atom(x) end)
+      |> Board.new()
+
+    board.cells
   end
 end

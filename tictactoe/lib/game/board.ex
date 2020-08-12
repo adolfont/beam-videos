@@ -1,5 +1,9 @@
 defmodule TicTacToe.Game.Board do
-  defstruct board: [
+  @moduledoc """
+  This is the TicTacToe Board module.
+  """
+
+  defstruct cells: [
               :empty,
               :empty,
               :empty,
@@ -13,28 +17,59 @@ defmodule TicTacToe.Game.Board do
             status: :unfinished,
             winner: :nobody
 
-  #  @symbols [:x, :o]
+  @symbols [:x, :o]
 
+  @doc """
+  Creates a new board where all cells are empty
+
+  Returns new board.
+
+  """
   def new() do
     %__MODULE__{}
   end
 
-  def new(a_board) do
-    %__MODULE__{board: a_board}
+  @doc """
+  Creates a new board where all cells are come from the input
+
+  Returns new board.
+
+  """
+  def new(cells) do
+    %__MODULE__{cells: cells}
   end
 
-  def move(board, position, new_symbol) do
-    new_board =
-      board.board
+  def move(board, x, y, symbol) when x in 1..3 and y in 1..3 and symbol in @symbols do
+    move(board, (x - 1) * 3 + y, symbol)
+  end
+
+  defp find_new_status(cells) do
+    cond do
+      winner?(cells, :x) ->
+        {:finished, :x}
+
+      winner?(cells, :o) ->
+        {:finished, :o}
+
+      true ->
+        {:unfinished, :nobody}
+    end
+  end
+
+  defp move(board, position, new_symbol) do
+    new_cells =
+      board.cells
       |> Enum.with_index(1)
       |> Enum.map(fn {symbol, index} ->
         change(symbol, index == position, new_symbol)
       end)
 
-    %__MODULE__{board: new_board}
+    {new_status, new_winner} = find_new_status(new_cells)
+
+    %__MODULE__{cells: new_cells, status: new_status, winner: new_winner}
   end
 
-  defp change(_old_symbol, true, new_symbol) do
+  defp change(:empty, true, new_symbol) do
     new_symbol
   end
 
@@ -46,8 +81,8 @@ defmodule TicTacToe.Game.Board do
     board.status != :unfinished
   end
 
-  def winner?(board, symbol) do
-    board.board |> Enum.with_index(0) |> filter(symbol) |> winner?()
+  def winner?(cells, symbol) do
+    cells |> Enum.with_index(0) |> filter(symbol) |> winner?()
   end
 
   defp winner?(list_of_pairs) do
@@ -94,4 +129,22 @@ defmodule TicTacToe.Game.Board do
     |> Enum.map(fn {_symbol, value} -> value end)
     |> Enum.map(fn x -> {div(x, 3) + 1, rem(x, 3) + 1} end)
   end
+
+  @spec show(atom | %{cells: any}) :: :ok
+  def show(board) do
+    board.cells
+    |> Enum.map(fn x -> show_atom(x) end)
+    |> Enum.chunk_every(3)
+    |> Enum.map(fn x -> Enum.join(x, " ") end)
+    |> Enum.join("\n")
+    |> IO.puts()
+
+    IO.puts("Status: #{Atom.to_string(board.status)}")
+    IO.puts("Winner: #{show_atom(board.winner)}")
+  end
+
+  defp show_atom(:empty), do: "_"
+  defp show_atom(:x), do: "X"
+  defp show_atom(:o), do: "O"
+  defp show_atom(:nobody), do: "nobody"
 end
