@@ -3,7 +3,9 @@ defmodule TictactoeTest do
   alias TicTacToe.Game.Board
 
   test "creates an empty board" do
-    assert Board.new().board == [
+    new_board = Board.new()
+
+    assert new_board.board == [
              :empty,
              :empty,
              :empty,
@@ -14,6 +16,8 @@ defmodule TictactoeTest do
              :empty,
              :empty
            ]
+
+    assert not Board.finished(new_board)
   end
 
   test "creates an empty board and puts an :x on position 4" do
@@ -35,7 +39,43 @@ defmodule TictactoeTest do
     )
   end
 
+  test "xoo
+        xxo
+        oxx is a winning board for x but not for o" do
+    assert Board.winner?(create_board("xoo xxo oxx"), :x)
+    assert not Board.winner?(create_board("xoo xxo oxx"), :o)
+  end
+
+  test "xoo
+        xox
+        oxo is a winning board for o but not for x" do
+    assert Board.winner?(create_board("xoo xox oxo"), :o)
+    assert not Board.winner?(create_board("xoo xox oxo"), :x)
+  end
+
+  test "xxx
+        xox
+        oxo is a winning board for x but not for o" do
+    assert Board.winner?(create_board("xxx xox oxo"), :x)
+    assert not Board.winner?(create_board("xxx xox oxo"), :o)
+  end
+
+  test "oxo
+        ooo
+        oxx is a winning board for o but not for x" do
+    assert Board.winner?(create_board("oxo ooo oxx"), :o)
+    assert not Board.winner?(create_board("oxo ooo oxx"), :x)
+  end
+
   defp assert_equals_board(b1, b2) do
     assert b1 == b2
+  end
+
+  defp create_board(string) do
+    string
+    |> String.replace(" ", "")
+    |> String.codepoints()
+    |> Enum.map(fn x -> String.to_atom(x) end)
+    |> Board.new()
   end
 end
