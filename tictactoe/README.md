@@ -1,5 +1,68 @@
 # Tictactoe
 
+## using a Mix task
+
+```
+elixir_utfpr ~/GitHub/beam-videos/tictactoe$ mix start
+Starting Random Player
+Do you want to start a random play? (Y/N)
+y
+_ _ _
+_ _ _
+_ _ _
+Status: unfinished,  Winner: nobody
+-----------------------
+Randomly choose to put O in position (3,3)
+_ _ _
+_ _ _
+_ _ O
+Status: unfinished,  Winner: nobody
+Randomly choose to put X in position (1,3)
+_ _ X
+_ _ _
+_ _ O
+Status: unfinished,  Winner: nobody
+Randomly choose to put O in position (2,2)
+_ _ X
+_ O _
+_ _ O
+Status: unfinished,  Winner: nobody
+Randomly choose to put X in position (3,1)
+_ _ X
+_ O _
+X _ O
+Status: unfinished,  Winner: nobody
+Randomly choose to put O in position (1,2)
+_ O X
+_ O _
+X _ O
+Status: unfinished,  Winner: nobody
+Randomly choose to put X in position (3,2)
+_ O X
+_ O _
+X X O
+Status: unfinished,  Winner: nobody
+Randomly choose to put O in position (2,1)
+_ O X
+O O _
+X X O
+Status: unfinished,  Winner: nobody
+Randomly choose to put X in position (2,3)
+_ O X
+O O X
+X X O
+Status: unfinished,  Winner: nobody
+Randomly choose to put O in position (1,1)
+O O X
+O O X
+X X O
+Status: finished,  Winner: O
+Do you want to play again?(Y/N)
+n
+'''
+
+## on iex 
+
 A simple iex (Elixir's REPL) implementation of Tic Tac Toe.
 
 Example:
