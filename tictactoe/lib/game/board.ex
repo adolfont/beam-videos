@@ -51,9 +51,16 @@ defmodule TicTacToe.Game.Board do
       winner?(cells, :o) ->
         {:finished, :o}
 
+      full?(cells) ->
+        {:finished, :nobody}
+
       true ->
         {:unfinished, :nobody}
     end
+  end
+
+  defp full?(cells) do
+    not (:empty in cells)
   end
 
   defp move(board, position, new_symbol) do
@@ -143,8 +150,8 @@ defmodule TicTacToe.Game.Board do
     IO.puts("Winner: #{show_atom(board.winner)}")
   end
 
-  defp show_atom(:empty), do: "_"
-  defp show_atom(:x), do: "X"
-  defp show_atom(:o), do: "O"
-  defp show_atom(:nobody), do: "nobody"
+  def show_atom(:empty), do: "_"
+  def show_atom(:x), do: "X"
+  def show_atom(:o), do: "O"
+  def show_atom(:nobody), do: "nobody"
 end
