@@ -146,7 +146,7 @@ defmodule TicTacToe.Game.Board do
     |> Enum.join("\n")
     |> IO.puts()
 
-    IO.puts("Status: #{Atom.to_string(board.status)}")
+    IO.write("Status: #{Atom.to_string(board.status)},  ")
     IO.puts("Winner: #{show_atom(board.winner)}")
   end
 
