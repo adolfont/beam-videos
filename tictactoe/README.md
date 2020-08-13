@@ -59,7 +59,7 @@ X X O
 Status: finished,  Winner: O
 Do you want to play again?(Y/N)
 n
-'''
+```
 
 ## on iex 
 
