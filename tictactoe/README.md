@@ -161,7 +161,7 @@ by adding `tictactoe` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:tictactoe, "~> 0.1.0"}
+    {:tictactoe, "~> 0.2"}
   ]
 end
 ```
