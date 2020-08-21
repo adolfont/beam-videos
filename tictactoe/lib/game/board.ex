@@ -60,14 +60,22 @@ defmodule TicTacToe.Game.Board do
     board.status != :unfinished
   end
 
+  defguard not_empty(symbol) when symbol != :empty
+
   @doc """
 
   Returns true if a symbol is the winner
 
   """
-  def winner?(cells, symbol) do
-    cells |> Enum.with_index(0) |> filter_positions_with_a_symbol(symbol) |> winner?()
-  end
+  def winner?([symbol, symbol, symbol | _], symbol) when not_empty(symbol), do: true
+  def winner?([_, _, _, symbol, symbol, symbol | _], symbol) when not_empty(symbol), do: true
+  def winner?([_, _, _, _, _, _, symbol, symbol, symbol], symbol) when not_empty(symbol), do: true
+  def winner?([symbol, _, _, symbol, _, _, symbol, _, _], symbol) when not_empty(symbol), do: true
+  def winner?([_, symbol, _, _, symbol, _, _, symbol, _], symbol) when not_empty(symbol), do: true
+  def winner?([_, _, symbol, _, _, symbol, _, _, symbol], symbol) when not_empty(symbol), do: true
+  def winner?([symbol, _, _, _, symbol, _, _, _, symbol], symbol) when not_empty(symbol), do: true
+  def winner?([_, _, symbol, _, symbol, _, symbol, _, _], symbol) when not_empty(symbol), do: true
+  def winner?(_, _), do: false
 
   @doc """
 
@@ -135,50 +143,5 @@ defmodule TicTacToe.Game.Board do
 
   defp change(old_symbol, _, _new_symbol) do
     old_symbol
-  end
-
-  defp winner?(list_of_pairs) do
-    horizontal_line_filled?(list_of_pairs) or
-      vertical_line_filled?(list_of_pairs) or
-      diagonal_line_filled?(list_of_pairs)
-  end
-
-  defp horizontal_line_filled?(list_of_pairs) do
-    line_filled?(list_of_pairs, fn {x, _y} -> x end)
-  end
-
-  defp vertical_line_filled?(list_of_pairs) do
-    line_filled?(list_of_pairs, fn {_x, y} -> y end)
-  end
-
-  defp diagonal_line_filled?(list_of_pairs) do
-    left_up_diagonal_line_filled?(list_of_pairs) or
-      left_down_diagonal_line_filled?(list_of_pairs)
-  end
-
-  defp left_up_diagonal_line_filled?(list_of_pairs) do
-    Enum.filter(list_of_pairs, fn {x, y} -> x == y end)
-    |> Enum.count() == 3
-  end
-
-  defp left_down_diagonal_line_filled?(list_of_pairs) do
-    Enum.filter(list_of_pairs, fn {x, y} -> x + y == 4 end)
-    |> Enum.count() == 3
-  end
-
-  defp line_filled?(list_of_pairs, function) do
-    values =
-      Enum.map(list_of_pairs, function)
-      |> Enum.frequencies()
-      |> Map.values()
-
-    3 in values
-  end
-
-  defp filter_positions_with_a_symbol(board, symbol) do
-    board
-    |> Enum.filter(fn {s, _value} -> symbol == s end)
-    |> Enum.map(fn {_symbol, value} -> value end)
-    |> Enum.map(fn x -> {div(x, 3) + 1, rem(x, 3) + 1} end)
   end
 end
