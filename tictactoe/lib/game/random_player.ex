@@ -1,5 +1,6 @@
 defmodule TicTacToe.Game.RandomPlayer do
   alias TicTacToe.Game.Board
+  alias TicTacToe.Interface.BoardShow
 
   @symbols [:x, :o]
 
@@ -33,7 +34,7 @@ defmodule TicTacToe.Game.RandomPlayer do
   # RANDOM PLAY
 
   defp random_play(board) do
-    Board.show(board)
+    BoardShow.show(board)
     IO.puts("-----------------------")
 
     make_a_play(board, choose_starting_symbol(), RandomMover.new())
@@ -56,7 +57,7 @@ defmodule TicTacToe.Game.RandomPlayer do
   end
 
   defp move(board, x, y, symbol) do
-    IO.puts("Randomly choose to put #{Board.show_atom(symbol)} in position (#{x},#{y})")
+    IO.puts("Randomly choose to put #{BoardShow.show_atom(symbol)} in position (#{x},#{y})")
     Board.move(board, x, y, symbol)
   end
 
@@ -66,7 +67,7 @@ defmodule TicTacToe.Game.RandomPlayer do
   end
 
   defp decide_if_move_is_allowed(_board, new_board, symbol, mover) do
-    Board.show(new_board)
+    BoardShow.show(new_board)
     make_a_play(new_board, Enum.at(@symbols -- [symbol], 0), mover)
   end
 
