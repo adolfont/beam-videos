@@ -42,12 +42,12 @@ defmodule TicTacToe.Game.RandomPlayer do
 
   defp make_a_play(board, symbol, mover) do
     cond do
-      Board.finished(board) ->
+      Board.finished?(board) ->
         board
 
       true ->
         {{x, y}, new_mover} = get_move(mover)
-        new_board = move(board, x, y, symbol)
+        new_board = move(board, {x, y}, symbol)
         decide_if_move_is_allowed(board, new_board, symbol, new_mover)
     end
   end
@@ -56,9 +56,9 @@ defmodule TicTacToe.Game.RandomPlayer do
     RandomMover.next_move(mover)
   end
 
-  defp move(board, x, y, symbol) do
+  defp move(board, {x, y}, symbol) do
     IO.puts("Randomly choose to put #{BoardShow.show_atom(symbol)} in position (#{x},#{y})")
-    Board.move(board, x, y, symbol)
+    Board.move(board, {x, y}, symbol)
   end
 
   defp decide_if_move_is_allowed(board, board, symbol, mover) do
